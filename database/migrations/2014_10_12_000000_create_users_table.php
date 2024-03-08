@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastName');
             $table->string('address', 250);
-            $table->string('rol');
+            $table->string('rol')->nullable();
             $table->date('birthdate');
-            $table->enum('userType', ['provider', 'applicant']);
+            $table->string('photo')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

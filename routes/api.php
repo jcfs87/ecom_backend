@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PublicacionController;
+use App\Http\Controllers\ValoracionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/login', [LoginController::class, 'loginCheck']);
+Route::get('/listValoraciones', [ValoracionController::class, 'index']);
+Route::get('/listPublicaciones', [PublicacionController::class, 'index']);
+Route::get('/valoracion/{id}', [ValoracionController::class, 'getRatingSum']);
 
 
 Route::middleware(['auth:sanctum'])->group(function () {

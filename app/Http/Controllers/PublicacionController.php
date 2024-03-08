@@ -14,7 +14,9 @@ class PublicacionController extends Controller
      */
     public function index()
     {
-        //
+        $publicaciones = Publicacion::all();
+        // Devolver los datos en formato JSON
+        return response()->json(['publicaciones' => $publicaciones]);
     }
 
     /**

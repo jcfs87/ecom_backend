@@ -20,7 +20,7 @@ class PublicacionFactory extends Factory
         $typeOption = ['provider', 'applicant'];
         return [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence,
             'fk_user_id' => User::all()->random()->users_id,
             'type' => $this->faker->randomElement($typeOption),
             'created_at' => now(),

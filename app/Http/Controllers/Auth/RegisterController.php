@@ -20,9 +20,9 @@ class RegisterController extends Controller
                 'password' => 'required|confirmed|min:8',
                 'lastName' => 'required|string|max:255',
                 'address' => 'required|string|max:250',
-                'rol' => 'required|string',
-                'birthdate' => 'required|date',
-                'userType' => 'required|in:provider,applicant',
+                'rol' => 'nullable|string',
+                'birthdate' => 'required|date|before:-18 years'
+,
             ]);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 400);
@@ -32,17 +32,16 @@ class RegisterController extends Controller
                 'name' => $request->input('name'),
                 'lastName' => $request->input('lastName'),
                 'address' => $request->input('address'),
-                'rol' => $request->input('rol'),
+                'rol' => $request->input('rol', 'user'),
                 'birthdate' => $birthdate,
-                'userType' => $request->input('userType'),
                 'email' => $request->input('email'),
                 'password' => bcrypt($request->input('password')), // Asignación del valor predeterminado "owner"
-                 ]);
-                 return response()->json([
-                    'message' => 'User successfully registered',
-                    'user' => $user,
-                     'token' => $user->createToken("API TOKEN")->plainTextToken,
-                 ], 201);
+            ]);
+            return response()->json([
+                'message' => 'User successfully registered',
+                'user' => $user,
+                'token' => $user->createToken("API TOKEN")->plainTextToken,
+            ], 201);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
