@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publicacion;
+use App\Models\User;
+use App\Models\Valoracion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePublicacionRequest;
 use App\Http\Requests\UpdatePublicacionRequest;
+use Illuminate\Support\Facades\DB;
 
 class PublicacionController extends Controller
 {
@@ -16,12 +19,28 @@ class PublicacionController extends Controller
     {
         $publicaciones = Publicacion::all();
         // Devolver los datos en formato JSON
-        return response()->json(['publicaciones' => $publicaciones]);
+        return response()->json([$publicaciones]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
+    public function getPublicacionWithUserAndValoracion()
+    {
+        try {
+             $publicacion = DB::table('users')
+                            ->join('valoracions', 'users.users_id', '=', 'valoracions.fk_user_id')
+                            ->join('publicacions', 'users.users_id', '=', 'publicacions.fk_user_id')
+                            ->select('users.users_id', 'publicacions.title', DB::raw('SUM(valoracions.puntos) as total_puntos'), 'publicacions.description', 'users.name')
+                            ->groupBy('users.users_id', 'publicacions.title', 'publicacions.description', 'users.name')
+                            ->get();
+             return response()->json($publicacion);
+        } catch (\Exception $e) {
+             report($e);
+             return response()->json(['error' => 'Error en esta función'], 500);
+        }
+    }
     public function create()
     {
         //
