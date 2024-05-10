@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->unsignedBigInteger('fk_user_id');
-            $table->enum('type', ['provider', 'applicant']);
+            $table->enum('type', ['provider', 'applicant'])->nullable();
             $table->foreign('fk_user_id')->references('users_id')->on('users');
             $table->timestamps();
         });

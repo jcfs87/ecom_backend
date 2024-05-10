@@ -21,8 +21,7 @@ class RegisterController extends Controller
                 'lastName' => 'required|string|max:255',
                 'address' => 'required|string|max:250',
                 'rol' => 'nullable|string',
-                'birthdate' => 'required|date|before:-18 years'
-,
+                'birthdate' => 'required|date|before:-18 years',
             ]);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 400);

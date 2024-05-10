@@ -13,8 +13,6 @@ class Publicacion extends Model
     {
         return $this->belongsTo(User::class, 'fk_user_id');
     }
-
-    public $timestamps = false;
     protected $table = 'publicacions';
     protected $primaryKey = 'pk_id_publicacion';
     protected $foreignKey = 'fk_user_id';

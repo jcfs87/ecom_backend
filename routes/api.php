@@ -28,6 +28,8 @@ Route::get('/listPublicaciones', [PublicacionController::class, 'index']);
 Route::get('/valoracion/{id}', [ValoracionController::class, 'getRatingSum']);
 Route::get('/publicacionesWithUser', [PublicacionController::class, 'getPublicacionWithUserAndValoracion']);
 
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('logout', [LogoutController::class, 'logout']);
+    Route::post('/createPublicacion', [PublicacionController::class, 'create']);
 });
